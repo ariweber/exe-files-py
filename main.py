@@ -44,3 +44,16 @@ def count_by_extension(path):
             for k, v in sub_counts.items():
                 counts[k] = counts.get(k, 0) + v
     return counts
+
+
+def find_duplicates(path):
+    files = {}
+    for item in os.listdir(path):
+        full_path = os.path.join(path, item)
+        if os.path.isfile(full_path):
+            files.setdefault(item, []).append(full_path)
+        else:
+            sub = find_duplicates(full_path)
+            for k, v in sub.items():
+                files.setdefault(k, []).extend(v)
+    return {k: v for k, v in files.items() if len(v) > 1}
