@@ -21,9 +21,6 @@ def print_all_files(path):
             print_all_files(full_path)    
 
 
-
-   
-
 def collect_py_files(path):
     py_files = []
     for item in os.listdir(path):
