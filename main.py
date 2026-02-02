@@ -44,3 +44,15 @@ def count_by_extension(path):
             for k, v in sub_counts.items():
                 counts[k] = counts.get(k, 0) + v
     return counts
+
+
+def find_large_files(path, size):
+    big_files = []
+    for item in os.listdir(path):
+        full_path = os.path.join(path, item)
+        if os.path.isfile(full_path):
+            if os.path.getsize(full_path) > size:
+                big_files.append(full_path)
+        else:
+            big_files.extend(find_large_files(full_path, size))
+    return big_files
